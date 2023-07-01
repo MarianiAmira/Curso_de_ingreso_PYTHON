@@ -40,8 +40,16 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_on_click(self):
-        pass
-        
+        importe_txt = self.txt_importe.get()
+        importe_int = float(importe_txt)
+        descuento_txt = self.txt_descuento.get()
+        descuento_int = float(descuento_txt)
+        descuento_por = (importe_int * descuento_int) /100
+        resultado_numero= importe_int - descuento_por 
+        resultado_texto=str(resultado_numero)
+        mensaje="Importe con descuento: " + resultado_texto
+        alert(title="Importe", message= mensaje)
+
     
 if __name__ == "__main__":
     app = App()

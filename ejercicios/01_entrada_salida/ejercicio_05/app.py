@@ -41,11 +41,10 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_on_click(self):
-        pass
-
-
-        
-        
+        nombre= self.txt_nombre.get()#OBTENER EL CONTENIDO DE LA CAJA
+        edad= self.txt_edad.get()
+        saludo="Usted se llama {0} y su edad es {1} años".format(nombre, edad)
+        alert(title="Saludo ", message=saludo)
     
 if __name__ == "__main__":
     app = App()

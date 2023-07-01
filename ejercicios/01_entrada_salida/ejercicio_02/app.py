@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre:Amira
+apellido:Mariani
 ---
 Ejercicio: entrada_salida_02
 ---
@@ -21,14 +21,16 @@ class App(customtkinter.CTk):
         super().__init__()
 
         # configure window
-        self.title("UTN FRA")
+        self.title("UTN FRA")#LE PONE EL TITULO A LA VENTANA PRINCIPAL
        
-        self.btn_mostrar = customtkinter.CTkButton(master=self, text="Mostrar", command=self.btn_mostrar_on_click)
+        self.btn_mostrar = customtkinter.CTkButton(master=self, text="Mostrar", command=self.btn_mostrar_on_click)#DECLARAR UN BOTON
         self.btn_mostrar.grid(row=2, pady=20, columnspan=2, sticky="nsew")
 
 
     def btn_mostrar_on_click(self):
-        pass
+        nombre= prompt(title="Pregunta", prompt="Cual es su nombre?")#CAJITA DE TEXTO - Dialog Prompt
+        mensaje= "Hola " + nombre + " ¿como estas?"
+        alert(title="INFO", message=mensaje) #Dialog Alert
         
         
     
