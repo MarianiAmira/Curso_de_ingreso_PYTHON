@@ -6,6 +6,11 @@ import customtkinter
 
 
 '''
+nombre: Amira
+apellido: Mariani
+---
+Ejercicio: instruccion_match_09
+---
 Una agencia de viajes cobra $15.000 por cada estadía como base. 
 Luego para calcular las tarifas total realiza el siguiente cálculo, 
 en función de la estación del año y del destino elegido:
@@ -52,7 +57,63 @@ class App(customtkinter.CTk):
         
     
     def btn_informar_on_click(self):
-        pass
+        tarifa = 15.000
+        destino= self.combobox_destino.get()
+        estacion= self.combobox_estaciones.get()
+        match(estacion):
+            case "Invierno":
+                match(destino):
+                    case "Bariloche" :
+                        resultado_numero= (tarifa / 0.20)*100
+                        resultado_texto=str(resultado_numero)
+                        mensaje="La tarifa sale: " + resultado_texto
+                        alert(title="Total", message=mensaje)
+                match(destino):
+                    case "Cataratas"| "Cordoba" :
+                        resultado_numero= (tarifa / 0.90)*100
+                        resultado_texto=str(resultado_numero)
+                        mensaje="La tarifa sale: " + resultado_texto
+                        alert(title="Total", message=mensaje)
+                match(destino):
+                    case "Mar del plata" :
+                        resultado_numero= (tarifa / 0.80)*100
+                        resultado_texto=str(resultado_numero)
+                        mensaje="La tarifa sale: " + resultado_texto
+                        alert(title="Total", message=mensaje)
+        match(estacion):
+            case "Verano":
+                match(destino):
+                    case "Bariloche" :
+                        resultado_numero= (tarifa / 1.20)*100
+                        resultado_texto=str(resultado_numero)
+                        mensaje="La tarifa sale: " + resultado_texto
+                        alert(title="Total", message=mensaje)
+                match(destino):
+                    case "Cataratas"| "Cordoba" :
+                        resultado_numero= (tarifa / 1.10)*100
+                        resultado_texto=str(resultado_numero)
+                        mensaje="La tarifa sale: " + resultado_texto
+                        alert(title="Total", message=mensaje)
+                match(destino):
+                    case "Mar del plata" :
+                        resultado_numero= (tarifa / 1.20)*100
+                        resultado_texto=str(resultado_numero)
+                        mensaje="La tarifa sale: " + resultado_texto
+                        alert(title="Total", message=mensaje)
+        match(estacion):
+            case _:
+                match(destino):
+                    case "Bariloche"| "Cataratas"| "Mar del plata":
+                        resultado_numero= (tarifa / 1.10)*100
+                        resultado_texto=str(resultado_numero)
+                        mensaje="La tarifa sale: " + resultado_texto
+                        alert(title="Total", message=mensaje)
+                match(destino):
+                    case "Cordoba" :
+                        resultado_numero= (tarifa / 1.00)*100
+                        resultado_texto=str(resultado_numero)
+                        mensaje="La tarifa sale: " + resultado_texto
+                        alert(title="Total", message=mensaje)
             
     
 if __name__ == "__main__":
