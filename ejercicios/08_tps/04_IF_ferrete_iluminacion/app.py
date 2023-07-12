@@ -5,6 +5,12 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
+nombre: Amira
+apellido: Mariani
+---
+Ejercicio: if_ferrete_iluminacion_04
+---
+Enunciado:
 Todas las lámparas están  al mismo precio de $800 pesos final.
 		A.	Si compra 6 o más  lamparitas bajo consumo tiene un descuento del 50%. 
 		B.	Si compra 5  lamparitas bajo consumo marca "ArgentinaLuz" se hace un descuento del 40 % y si es de otra marca el descuento es del 30%.
@@ -38,36 +44,43 @@ class App(customtkinter.CTk):
 
 
     def btn_calcular_on_click(self):
-        marca_ingresada = self.combobox_marca.get()
-        cantidad_ingresada_txt = self.combobox_cantidad.get()
-        cantidad_ingresada_int = int(cantidad_ingresada_txt)
+       marca_ingresada = self.combobox_marca.get()
+       cantidad_ingresada_txt = self.combobox_cantidad.get()
+       cantidad_ingresada_int = int(cantidad_ingresada_txt)
 
-        precio_lamparas = 800
-        precio_final = cantidad_ingresada_int * precio_lamparas
-        
-        if cantidad_ingresada_int >= 6:
-            precio_final = precio_lamparas * (50/100)
-        elif cantidad_ingresada_int == 5 and marca_ingresada == "ArgentinaLuz":
-            precio_final = precio_lamparas * (60/100)
-        elif cantidad_ingresada_int == 5 and marca_ingresada != "ArgentinaLuz":
-            precio_final = precio_lamparas * (70/100)
-        elif cantidad_ingresada_int == 4 and (marca_ingresada == "ArgentinaLuz" or marca_ingresada =="FelipeLamparas"):
-            precio_final = precio_lamparas * (75/100)
-        elif cantidad_ingresada_int == 4 and marca_ingresada != "ArgentinaLuz" and marca_ingresada != "FelipeLamparas":
-            precio_final = precio_lamparas * (80/100)
-        elif cantidad_ingresada_int == 3 and marca_ingresada == "ArgentinaLuz":
-            precio_final = precio_lamparas * (85/100)
-        elif cantidad_ingresada_int == 3 and marca_ingresada == "FelipeLamparas":
-            precio_final = precio_lamparas * (90/100)
-        elif cantidad_ingresada_int == 3 and marca_ingresada != "ArgentinaLuz" and marca_ingresada != "FelipeLamparas":
-            precio_final = precio_lamparas * (95/100)
+       precio_lamparas = 800
+       descuento = 0
 
-        if precio_final > 4000:
-            precio_final = precio_lamparas * (95/100)
+       if cantidad_ingresada_int >= 6:
+           descuento = 50
+       elif (cantidad_ingresada_int == 5):
+           if marca_ingresada == "ArgentinaLuz":
+               descuento = 40
+           else:
+            descuento =30
+       elif cantidad_ingresada_int == 4:
+           if marca_ingresada == "ArgentinaLuz" or marca_ingresada == "FelipeLamparas":
+            descuento = 25
+           else:
+            descuento = 20
+       elif cantidad_ingresada_int == 3:
+           if marca_ingresada == "ArgentinaLuz":
+              descuento = 15
+           elif marca_ingresada == "FelipeLamparas":
+              descuento = 10
+           else:
+              descuento = 5
         
-        mensaje = "El precio final es de {0}".format(precio_final)
-        alert(title="Precio Final", message=mensaje)
-        
+       precio_final = cantidad_ingresada_int * precio_lamparas
+       descuento_lamparas =  precio_final *(descuento/100)
+       precio_final_descuento = precio_final - descuento_lamparas
+
+       if precio_final_descuento > 4000:
+           descuento_extra = precio_final_descuento * 5/100
+           precio_final_descuento = precio_final_descuento - descuento_extra
+       
+       mensaje = "El precio final es de: {0}".format(precio_final_descuento)
+       alert(title="Precio", message= mensaje)
     
 if __name__ == "__main__":
     app = App()
