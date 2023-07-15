@@ -5,6 +5,11 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
+nombre: Amira
+apellido: Mariani
+---
+Ejercicio: intruccion_while_10
+---
 Enunciado:
 Al presionar el botón ‘Comenzar ingreso’, solicitar mediante prompt todos los números que el usuario 
 quiera hasta que presione el botón Cancelar (en el prompt). 
@@ -33,48 +38,36 @@ class App(customtkinter.CTk):
 
 
     def btn_comenzar_ingreso_on_click(self):
-        numeros = []
-        suma_positivo = 0
-        suma_negativo = 0
-        cantidad_positivos = 0
-        cantidad_negativos = 0
-        cantidad_ceros = 0
+       respuesta = "Si"
+       acumular_positivos = 0
+       acumular_negativos = 0
+       cantidad_positivos = 0
+       cantidad_negativos = 0
+       cantidad_ceros = 0
+       diferencia = 0
 
-        while True:
-            numero_txt = prompt(title="numero", prompt="Ingrese un número: ")
-            
-            if numero_txt == "":
-                break
-            else:
-                numero_int = int(numero_txt)
-                numeros.append(numero_int)
+       while respuesta != None:
+           numero_ingresado = int(prompt(title="Numeros", prompt="Ingrese un numero"))
 
-                if numero_int > 0:
-                    suma_positivo += numero_int
-                    cantidad_positivos += 1
-                elif numero_int < 0:
-                    suma_negativo += numero_int
-                    cantidad_negativos += 1
-                else:
-                    cantidad_ceros += 1
-            
-        diferencia = cantidad_positivos - cantidad_negativos
-         
-        mensaje_suma = "La suma de positivos es: {0}".format(suma_positivo)
-        mensaje_resta = "La suma de positivos es: {0}".format(suma_negativo)
-        mensaje_cantidad_positivo = "La cantidad de positivos es: {0}".format(cantidad_positivos)
-        mensaje_cantidad_negativo = "La cantidad de negativos es: {0}".format(cantidad_negativos)
-        mensaje_cantidad_ceros = "La cantidad de ceros es: {0}".format(cantidad_ceros)
-        mensaje_diferencia = "La suma de positivos es: {0}".format(diferencia)
-        
-        alert(title="Suma de +", message= mensaje_suma)
-        alert(title="Suma de -", message= mensaje_resta)
-        alert(title="Cantidad de +", message= mensaje_cantidad_positivo)
-        alert(title="Cantidad de -", message= mensaje_cantidad_negativo)
-        alert(title="Cantidad de 0", message= mensaje_cantidad_ceros)
-        alert(title="Diferencia entre + y -", message= mensaje_diferencia)
+           if numero_ingresado > 0:
+               acumular_positivos += numero_ingresado
+               cantidad_positivos += 1
+           elif numero_ingresado < 0:
+                acumular_negativos += numero_ingresado
+                cantidad_negativos += 1
+           elif numero_ingresado == 0:
+               cantidad_ceros += 1
+
+           respuesta = prompt(title="Pregunta", prompt="Quiere ingresar otro numero?")
+
+       diferencia = cantidad_positivos - cantidad_negativos
+       
+       mensaje = "La suma de los positivos es : {0}\nLa suma de los negativos es: {1}\nLa cantidad de positivos es de: {2}\nLa cantidad de negativos es de: {3}\nLa cantidad de ceros es de: {4}\nLa diferencia entre la cantidad de positivos y negativos es de: {5}".format(acumular_positivos, acumular_negativos,cantidad_positivos,cantidad_negativos,cantidad_ceros,diferencia)
+       
+       alert(title="Respuestas", message=mensaje)
 
     
 if __name__ == "__main__":
     app = App()
-    app.mainloop()
+    app.mainloop() 
+ 

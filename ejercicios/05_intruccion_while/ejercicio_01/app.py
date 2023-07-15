@@ -29,10 +29,12 @@ class App(customtkinter.CTk):
         
     
     def btn_mostrar_iteracion_on_click(self):
-        contador = 1
-        while(contador <= 10):
+        contador = 1 #sube los numeros para las iteraciones, desde donde arranca
+
+        #mientras contador ... itera
+        while contador <= 10:
             alert(title="Numero", message=contador)
-            contador = contador +1
+            contador += 1    #contadxor +1 
     
     
 if __name__ == "__main__":

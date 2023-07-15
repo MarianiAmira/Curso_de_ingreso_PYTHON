@@ -37,24 +37,30 @@ class App(customtkinter.CTk):
 
 
     def btn_comenzar_ingreso_on_click(self):
-        numeros = []
-        while True:
-            numero_txt = prompt(title="numero", prompt="Ingrese un número: ")
-            
-            if numero_txt == "":
-                break
-            else:
-                numero_int = int(numero_txt)
-                numeros.append(numero_int)
-         
-        minimo = min(numeros)       
-        maximo = max(numeros)
-        
-        self.txt_minimo.delete(0,10000)
-        self.txt_minimo.insert(0, minimo)
-        self.txt_maximo.delete(0,10000)
-        self.txt_maximo.insert(0, maximo)
+        respuesta = "Si"
+        '''bandera, concepto para que tenga dos conceptos'''
+        bandera_del_primero = False
 
+        while respuesta != None:
+
+            numero_ingresado = prompt(title="Numero", prompt="Ingrese un numero")
+
+            if bandera_del_primero == False: #carga el primer numero para q en la segunda vuelta los compare
+                numeros_maximo = numero_ingresado
+                numero_minimo = numero_ingresado #el primer numero que ingresa es minimo y maximo, para asegurar el max y min
+                bandera_del_primero = True #se levanta la bandera en la segunda vuelta
+            else:
+                if numero_ingresado > numeros_maximo:
+                    numeros_maximo = numero_ingresado
+                if numero_ingresado < numero_minimo:
+                    numero_minimo = numero_ingresado
+            
+            respuesta = prompt(title="Numero", prompt="Desea ingresar otro numero")
+        
+        self.txt_minimo.delete(0, 1000)
+        self.txt_minimo.insert(0, numero_minimo)
+        self.txt_maximo.delete(0, 1000)
+        self.txt_maximo.insert(0, numeros_maximo)
     
 if __name__ == "__main__":
     app = App()
