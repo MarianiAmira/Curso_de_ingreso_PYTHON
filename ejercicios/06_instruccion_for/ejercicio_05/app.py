@@ -22,8 +22,12 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_on_click(self):
-        pass
-        
+        for i in range(100):
+            respuesta = "si"
+            respuesta = question(title="Pregunta", message="¿Desea continuar?")
+            if respuesta == False:
+                break
+
     
 if __name__ == "__main__":
     app = App()

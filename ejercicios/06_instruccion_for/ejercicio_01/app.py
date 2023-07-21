@@ -23,8 +23,9 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_on_click(self):
-        pass 
-       
+        for numero in range(1,6):
+            mensaje = "El numero es: {0}".format(numero)
+            alert(title="Numero", message= mensaje)
             
 
 if __name__ == "__main__":
