@@ -41,61 +41,94 @@ class App(customtkinter.CTk):
         self.btn_validar.grid(row=4, pady=20, columnspan=2, sticky="nsew")
 
     def btn_validar_on_click(self):
-        contador_a = 0
-        nombre_jr_nombre_edad = ""
-        edad_jr_menor = float('inf')
-        total_edades_f = 0
-        total_edades_m = 0
-        total_edades_nb = 0
+        contador_postulante_Ssr = 0
+        bandera_menor_edad = False
+        nombre_menor_Edad_jr = ""
+        edad_menor_Edad_jr = 0
         contador_f = 0
+        acumulador_f = 0
         contador_m = 0
+        acumulador_m = 0
         contador_nb = 0
+        acumulador_nb = 0
         contador_python = 0
         contador_js = 0
-        contador_aspnet = 0
+        contador_asp_net = 0
 
-        for i in range (4):
-            alert(title="Postulante", message="Ingrese los datos de los postulante")
+        for postulantes in range(3):
             nombre = prompt(title="Nombre", prompt="Ingrese su nombre:")
-            edad = prompt(title="Edad", prompt="Ingrese su edad:")
-            genero = prompt(title="genero", prompt="Ingrese su genero:")
-            tegnologia = prompt(title="tengonolgia", prompt="Ingrese su tegnologia:")
-            puesto = prompt(title="puesto", prompt="Ingrese su puesto:")
-
-        if genero == "NB" and tegnologia == "ASP.NET" or tegnologia == "JS" and edad >= 25 and edad <=40 and puesto =="Ssr":
-            contador_a += 1
-
-        if puesto == "Jr" and edad < edad_jr_menor:
-            nombre_jr_menor_edad = nombre
-            edad_jr_menor = edad
-
-        if genero == "F":
-            contador_f +=1
-            total_edades_f += 1
-        elif genero == "M":
-            contador_m +=1
-            total_edades_m += 1
-        else:
-            contador_nb +=1
-            total_edades_nb += 1
-
-        if tegnologia == "PYTHON":
-            contador_python += 1
-        elif tegnologia == "JS":
-            contador_js += 1
-        else:
-            contador_aspnet +=1
-
-        promedio_edad_f = total_edades_f / contador_f
-        promedio_edad_m = total_edades_m / contador_m
-        promedio_edad_nb = total_edades_nb / contador_nb
-
-        porcentaje_f = (contador_f /10)*100
-        porcentaje_m = (contador_m /10)*100
-        porcentaje_nb = (contador_nb /10)*100
+            while nombre is None or nombre.isdigit():
+                nombre = prompt(title="ERROR", prompt="ERROR,Ingrese su nombre:")
+            edad =int(prompt(title="Edad", prompt="Ingrese su edad:"))
+            while edad < 18:
+                edad =int(prompt(title="ERROR", prompt="ERROR, Ingrese su edad:"))
+            genero = prompt(title="Genero", prompt="Ingrese su genero (F, M, NB):")
+            while genero != "F" and genero != "M" and genero != "NB":
+                genero = prompt(title="EROR", prompt="ERROR, Ingrese su genero (F, M, NB):")
+            tecnologia = prompt(title="Tecnologia", prompt="Ingrese su tecnologia (PYTHON - JS - ASP.NET):")
+            while tecnologia != "PYTHON" and tecnologia != "JS" and tecnologia != "ASP.NET":
+                tecnologia = prompt(title="ERROR", prompt="ERROR,Ingrese su tecnologia (PYTHON - JS - ASP.NET):")
+            puesto = prompt(title="Puesto", prompt="Ingrese su puesto (Jr - Ssr - Sr):")
+            while puesto != "Jr" and puesto != "Ssr" and puesto != "Sr":
+                puesto = prompt(title="ERROR", prompt="ERROR, Ingrese su puesto (Jr - Ssr - Sr):")
             
-        alert(title="Postulantes" "Resultado\nLa cantidad de postulantes NB que programan en ASP.NET o js, tiene entre 25 y 40 y se postula para Ssr {0}\n Nombre del postulante Jr con menor edad: {1}\nPromedio de edades de genero Femenino {2}, masculino {3} y no binario {4}\nLa tegnologia con mas postulantes {5}\n Porcentaje de postulantes de cada genero, Femenino: {6}, masculino: {7} y no binario {8}").format(contador_nb,nombre_jr_menor_edad, promedio_edad_f, promedio_edad_m, promedio_edad_nb, tegnologia, porcentaje_f, porcentaje_m, porcentaje_nb)
+            #a. Cantidad de postulantes de genero no binario (NB) que programan en ASP.NET o JS cuya edad este entre 25 y 40, que se hayan postulado para un puesto Ssr. 
+            if genero == "NB" and (tecnologia == "ASP.NET" or tecnologia == "JS") and (edad > 25 or edad < 40) and puesto == "Ssr":
+                contador_postulante_Ssr += 1
+                
+            #b. Nombre del postulante Jr con menor edad.
+            if puesto == "Jr":
+                if bandera_menor_edad == True:
+                    nombre_menor_Edad_jr = nombre
+                    edad_menor_Edad_jr = edad
+                    bandera_menor_edad == False
+                else:
+                    if edad_menor_Edad_jr > edad:
+                        nombre_menor_Edad_jr = nombre
+                        edad_menor_Edad_jr = edad
 
+            if puesto == "Jr" and (bandera_menor_edad is True or edad < edad_menor_Edad_jr):
+                nombre_menor_Edad_jr = nombre
+                edad_menor_Edad_jr = edad
+            
+            #c. Promedio de edades por género.
+            if genero == "F":
+                contador_f += 1
+                acumulador_f += edad
+            if genero == "M":
+                contador_m += 1
+                acumulador_m += edad
+            if genero == "NB":
+                contador_nb += 1
+                acumulador_nb += edad
+
+            #d. Tecnologia con mas postulantes (solo hay una).
+            if tecnologia == "PYTHON":
+                contador_python += 1
+            elif tecnologia == "JS":
+                contador_js += 1
+            else:
+                contador_asp_net += 1
+
+            if contador_python > contador_js and contador_python > contador_asp_net:
+                tecnologia_mas_postulantes = "PYTHON"
+            elif contador_js > contador_python and contador_js > contador_asp_net:
+                tecnologia_mas_postulantes = "JS"
+            else:
+                tecnologia_mas_postulantes = "ASP.NET"
+
+
+        promedio_f = acumulador_f / contador_f
+        promedio_m = acumulador_m / contador_m
+        promedio_nb = acumulador_nb / contador_nb
+
+        #e. Porcentaje de postulantes de cada genero.
+        porcentaje_f = (contador_f/3)*100
+        porcentaje_m = (contador_m/3)*100
+        porcentaje_nb = (contador_nb/3)*100
+
+        mensaje = "Cantidad de postulantes de genero no binario (NB) que programan en ASP.NET o JS cuya edad este entre 25 y 40, que se hayan postulado para un puesto Ssr: {0}\nNombre del postulante Jr con menor edad: {1} y su edad es {2}\nPromedio de edades por género:\nF: {3}\nM: {4}\nNB:{5}\nTecnologia con mas postulantes{4}\nPorcentaje de postulantes de cada gener:\nF: {5}\nM: {6}\nNB:{7}".format(contador_postulante_Ssr,nombre_menor_Edad_jr,edad_menor_Edad_jr,promedio_f,promedio_m,promedio_nb,tecnologia_mas_postulantes,porcentaje_f,porcentaje_m,porcentaje_nb)
+            
 
 if __name__ == "__main__":
     app = App()

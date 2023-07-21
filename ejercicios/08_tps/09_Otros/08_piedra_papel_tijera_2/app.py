@@ -35,11 +35,11 @@ class App(customtkinter.CTk):
         self.btn_restart.grid(row=5, pady=20, columnspan=2, sticky="nsew")
         
         self.cpu_elije()
-        print(self.seleccion_cpu)
+        #print(self.seleccion_cpu)
         
         self.contador_vitorias_cpu = 0 
         self.contador_vitorias_player_1 = 0 
-
+        self.contador_empates = 0
 
 
     def deshabilitar_botones(self):
@@ -52,22 +52,70 @@ class App(customtkinter.CTk):
         self.btn_papel.configure(state="normal")
         self.btn_tijera.configure(state="normal")
         self.cpu_elije()
-        print(self.seleccion_cpu)
+        #print(self.seleccion_cpu)
 
     def cpu_elije(self):
-        pass
-
+        import random
+        self.seleccion_cpu = random.randint(1, 3)
+        if self.seleccion_cpu ==1:
+            print("La cpu eligio : Piedra")
+        elif self.seleccion_cpu ==2:
+            print("La cpu eligio : Papel")
+        else:
+            print("La cpu eligio : Tijera")
+     
     def btn_piedra_on_click(self):
         self.deshabilitar_botones()
-        pass
+        seleccion_jugador = "Piedra"
+        if seleccion_jugador == "Piedra":
+            if self.seleccion_cpu == 1:
+                mensaje = "empate"
+                self.contador_empates += 1
+            elif self.seleccion_cpu == 2:
+                mensaje = "Perdiste"
+                self.contador_vitorias_cpu += 1
+            else:
+                mensaje = "Ganaste"
+                self.contador_vitorias_player_1 += 1
+        alert(title="Resultado", message=mensaje)
+        self.mostrar_estadisticas()
 
     def btn_papel_on_click(self):
         self.deshabilitar_botones()
-        pass
+        seleccion_jugador = "Papel"
+        if seleccion_jugador == "Papel":
+            if self.seleccion_cpu == 1:
+                mensaje = "Ganaste"
+                self.contador_vitorias_player_1 += 1
+            elif self.seleccion_cpu == 2:
+                mensaje = "Empate"
+                self.contador_empates += 1
+            else:
+                mensaje = "Perdiste"
+                self.contador_vitorias_cpu += 1
+        alert(title="Resultado", message=mensaje)
+        self.mostrar_estadisticas()
 
     def btn_tijera_on_click(self):
         self.deshabilitar_botones()
-        pass
+        seleccion_jugador = "Tijera"
+        if seleccion_jugador == "Tijera":
+            if self.seleccion_cpu == 1:
+                mensaje = "Perdiste"
+                self.contador_vitorias_cpu += 1
+            elif self.seleccion_cpu == 2:
+                mensaje = "Ganaste"
+                self.contador_vitorias_player_1 += 1
+            else:
+                mensaje = "Empate"
+                self.contador_empates += 1
+        alert(title="Resultado", message=mensaje)
+        self.mostrar_estadisticas()
+        
+    def mostrar_estadisticas(self):
+        mensaje = "Estadisticas del juego:\nVictorias de la CPU: {0}\nVictorias del jugador {1}\nEmpates: {2}".format(self.contador_vitorias_cpu, self.contador_vitorias_player_1, self.contador_empates)
+        alert(title="Resultados", message=mensaje)
+
 
 if __name__ == "__main__":
     app = App()

@@ -33,9 +33,7 @@ class App(customtkinter.CTk):
         self.btn_restart.grid(row=5, pady=20, columnspan=2, sticky="nsew")
         
         self.cpu_elije()
-        print(self.seleccion_cpu)
-        
-
+        #print(self.seleccion_cpu)
 
     def deshabilitar_botones(self):
         self.btn_piedra.configure(state="disabled")
@@ -47,25 +45,55 @@ class App(customtkinter.CTk):
         self.btn_papel.configure(state="normal")
         self.btn_tijera.configure(state="normal")
         self.cpu_elije()
-        print(self.seleccion_cpu)
-
-
+        #print(self.seleccion_cpu)
 
     def cpu_elije(self):
-        pass
+        import random
+        self.seleccion_cpu = random.randint(1, 3)
+        if self.seleccion_cpu ==1:
+            print("La cpu eligio : Piedra")
+        elif self.seleccion_cpu ==2:
+            print("La cpu eligio : Papel")
+        else:
+            print("La cpu eligio : Tijera")
      
     def btn_piedra_on_click(self):
         self.deshabilitar_botones()
-        pass
+        seleccion_jugador = "Piedra"
+        if seleccion_jugador == "Piedra":
+            if self.seleccion_cpu == 1:
+                mensaje = "empate"
+            elif self.seleccion_cpu == 2:
+                mensaje = "Perdiste"
+            else:
+                mensaje = "Ganaste"
+        alert(title="Resultado", message=mensaje)
+
 
     def btn_papel_on_click(self):
         self.deshabilitar_botones()
-        pass
+        seleccion_jugador = "Papel"
+        if seleccion_jugador == "Papel":
+            if self.seleccion_cpu == 1:
+                mensaje = "Ganaste"
+            elif self.seleccion_cpu == 2:
+                mensaje = "Empate"
+            else:
+                mensaje = "Perdiste"
+        alert(title="Resultado", message=mensaje)
 
     def btn_tijera_on_click(self):
         self.deshabilitar_botones()
-        pass
-        
+        seleccion_jugador = "Tijera"
+        if seleccion_jugador == "Tijera":
+            if self.seleccion_cpu == 1:
+                mensaje = "Perdiste"
+            elif self.seleccion_cpu == 2:
+                mensaje = "Ganaste"
+            else:
+                mensaje = "Empate"
+        alert(title="Resultado", message=mensaje)
+    
 
 if __name__ == "__main__":
     app = App()

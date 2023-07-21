@@ -5,6 +5,11 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
+nombre: Amira
+apellido: Mariani
+---
+Ejercicio: while_validacion_05
+---
 Rising BTL. Empresa dedicada a la toma de datos para realizar estadísticas y censos nos pide realizar una carga de datos validada e ingresada 
 por ventanas emergentes solamente (para evitar hacking y cargas maliciosas) y luego asignarla a cuadros de textos. 
 
@@ -50,34 +55,31 @@ class App(customtkinter.CTk):
         self.btn_validar.grid(row=4, pady=20, columnspan=2, sticky="nsew")
 
     def btn_validar_on_click(self):
-        apellido_ingresado = self.txt_apellido.get()
-        while apellido_ingresado == "":
+        apellido_Ingresado = self.txt_apellido.get()
+        while apellido_Ingresado == "":
             alert(title="Error", message="Ingrese su apellido")
             return False
-        while apellido_ingresado.isdigit():
-            alert(title="Error", message="Ingrese su apellido, no se permiten numeros")
-            return False
-
-        edad_ingresada_txt = self.txt_edad.get()
-        while edad_ingresada_txt == "":
-            alert(title="Error", message="Ingrese su edad (entre 18 y 90)")
-            return False
-        edad_ingresada_int = int(edad_ingresada_txt)
-        while(edad_ingresada_int <= 17 or edad_ingresada_int >= 91):
-            alert(title="Error", message="Ingrese su edad (entre 18 y 90)")
-            return False
-
-        estado_civil = self.combobox_tipo.get()
-
-        legajo_ingresado_txt = self.txt_legajo.get() 
-        legajo_ingresado_int = int(legajo_ingresado_txt)
-        if len (legajo_ingresado_txt) != 4:
-            alert(title="Error", message="Debe ingresar un número de 4 cifras.")
+        while apellido_Ingresado.isdigit():
+            alert(title="Error", message="Ingrese su apellido,no se permiten numeros")
             return False
         
-        mensaje = "Su apellido es {0}\nSu edad es {1}\nSu estado civil es {2}\nSu legajo es {3}".format(apellido_ingresado, edad_ingresada_int, estado_civil, legajo_ingresado_int)
-        alert(title="Datos", message=mensaje)
+        edad_ingresada_txt = self.txt_edad.get()
+        edad_ingresada_int = int(edad_ingresada_txt)
+        while edad_ingresada_int < 18 or edad_ingresada_int > 90:
+            alert(title="Error", message="Ingrese su edad(entre 19 y 90)")
+            return False
+        
+        estado_civil = self.combobox_tipo.get()
 
+        legajo_ingresado_txt = self.txt_legajo.get()
+        legajo_ingresado_int = int(legajo_ingresado_txt)
+        while legajo_ingresado_int < 1000 or legajo_ingresado_int > 9999:
+            alert(title="Error", message="Ingrese el legajo de nuevo(de 4 cifras)")
+            return False
+        
+        mensaje = "Los datos ingresados son:\nSu apellido es: {0}\nSu edad es: {1}\nSu estado civil es: {2}\nSu legajo es:{3}".format(apellido_Ingresado,edad_ingresada_int,estado_civil,legajo_ingresado_int)
+
+        alert(title="Datos Ingresados", message=mensaje)
 
 if __name__ == "__main__":
     app = App()

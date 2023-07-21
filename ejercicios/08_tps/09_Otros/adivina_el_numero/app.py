@@ -19,7 +19,7 @@ para ingresar un número y un botón “Verificar”, si el número ingresado es
 
 “Ganaste en X intentos”.
 de no ser igual se debe informar si 
-“falta…”  para llegar al número secreto  o si 
+“falta…”  para llegar al número secreto  o si 56
 “se pasó…”  del número secreto.
 '''
 
@@ -47,14 +47,13 @@ class App(customtkinter.CTk):
         numero_ingresado_int = int(numero_ingresado_txt)
         self.numero_intento += 1
         if numero_ingresado_int == self.numero_secreto:
-            mensaje_uno = "ganaste en {0} intentos".format(self.numero_intento)
-            alert(title="Juego", message=mensaje_uno)
+            mensaje = "ganaste en {0} intentos".format(self.numero_intento)
         elif numero_ingresado_int < self.numero_secreto:
-            mensaje_dos="Falta..."
-            alert(title="Juego", message=mensaje_dos)
+            mensaje = "Falta..."
         else:
-            mensaje_tres= "Te pasaste..."
-            alert(title="Juego", message=mensaje_tres)
+            mensaje = "Te pasaste..."
+
+        alert(title="Juego", message=mensaje)
 
 
 if __name__ == "__main__":

@@ -29,52 +29,60 @@ class App(customtkinter.CTk):
         self.btn_validar.grid(row=4, pady=20, columnspan=2, sticky="nsew")
 
     def btn_validar_on_click(self):
-        nombre_mas_votos = ""
+        respuesta = "si"
+        bandera_votos = False
+
         votos_mas_altos = -1
-        nombre_menos_votos = ""
-        edad_menos_votos = -1
+        nombre_candidato_mas_votos = ""
+        edad_candidatos_menos_votos = -1
+        nombre_candidato_menos_votos = ""
         votos_menos_altos = float("inf")
         suma_edades = 0
         total_candidatos = 0
         votos_totales = 0
 
-        candidatos = []
-        while True:
-            nombre = prompt(title="Nombre", prompt="Ingrese su nombre")
-            edad = int(prompt(title="Edad", prompt="Ingrese su edad(mayor a 25)"))
-            while edad <=25:
-                edad = int(prompt(title="Edad", prompt="Error,Ingrese su edad(mayor a 25)"))
+        while respuesta != None:
+            nombre = prompt(title="Nombre Candidato", prompt="Ingrese su nombre")
+            while nombre == "":
+                nombre = prompt(title="ERROR", prompt="ERROR, Ingrese su nombre")
 
-            votos = int(prompt(title="Votos", prompt="Ingrese sus votos(mayor a 0)"))
-            while votos < 0:
-                votos = int(prompt(title="Votos", prompt="Error,Ingrese sus votos(mayor a 0)"))
+            edad = int(prompt(title="Edad", prompt="Ingrese su edad"))
+            while edad < 25:
+                edad = int(prompt(title="ERROR", prompt="ERROR, Ingrese su edad"))
 
-            #agregar los datos a la lista
-            candidatos.append((nombre,edad,votos))
+            cantidad_de_votos = int(prompt(title="Votos", prompt="Ingrese sus votos"))
+            while cantidad_de_votos < 0:
+                cantidad_de_votos = int(prompt(title="ERROR", prompt="Error, Ingrese sus votos"))
 
-            pregunta = question(title="Candidatos", message="Quiere agregar otro candidato?")
-            if pregunta != True:
-                break
+            respuesta = prompt(title="Candidatos", prompt="Quiere agregar otro candidato")
+            
 
-        for candidato in candidatos:
-            nombre, edad, votos = candidato
+        '''for candidatos in candidatos:
+            nombre, edad, cantidad_de_votos = candidatos'''
 
-            if votos > votos_mas_altos:
-                nombre_mas_votos = nombre
-                votos_mas_altos = votos
+        if bandera_votos == False:
+            nombre_candidato_mas_votos = nombre
+            nombre_candidato_menos_votos = nombre
+            bandera_votos = True
+        else:
+            if cantidad_de_votos > votos_mas_altos:
+                nombre_candidato_mas_votos = nombre
+                votos_mas_altos = cantidad_de_votos
 
-            if votos < votos_menos_altos:
-                nombre_menos_votos = nombre
-                edad_menos_votos = edad
-                votos_menos_altos = votos
+            if cantidad_de_votos < votos_menos_altos:
+                edad_candidatos_menos_votos = edad
+                nombre_candidato_menos_votos = nombre
+                votos_menos_altos = cantidad_de_votos
 
             suma_edades += edad
             total_candidatos += 1
-            votos_totales += votos
-            
-        promedio_edades = suma_edades / total_candidatos
+            votos_totales += cantidad_de_votos
 
-        mensaje = "El candidato con mas votos es: {0}\nEl candidato con menos votos es: {1}, con {2} años\nEl promedio de edades de los candidatos es: {3}\nEl total de votos es: {4}".format(nombre_mas_votos, nombre_menos_votos, edad_menos_votos, promedio_edades, votos_totales)
+        
+        if promedio < 0:
+            promedio = suma_edades / total_candidatos
+
+        mensaje = "El candidato con mas votos es {0}\nEl candidato con menos votos es:{1}, con {2} años\nEl promedio de edades de los candidatos es de {3}\nEl total de votos es de {4}".format(nombre_candidato_mas_votos,nombre_candidato_menos_votos,edad_candidatos_menos_votos,promedio,votos_totales)
 
         alert(title="Candidatos", message=mensaje)
 
