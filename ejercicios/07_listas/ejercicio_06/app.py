@@ -25,15 +25,18 @@ class App(customtkinter.CTk):
         self.btn_calcular = customtkinter.CTkButton(master=self, text="PROMEDIO", command=self.btn_calcular_on_click)
         self.btn_calcular.grid(row=2, pady=10, columnspan=2, sticky="nsew")
 
-        self.lista_datos = [1,80,5,0,15,-5,1,79]
+        self.lista_datos = [1,80,5,0,-5,15,1,79]
 
 
     def btn_calcular_on_click(self):
-        numero = self.lista_datos
-        promedio = sum(numero) / len(numero)#len es para obtener la longitud de la lista y almacenarla en la variable
-        mensaje = "El promedio es de: {0} ".format(promedio) 
-        alert(title="Promedio", message=mensaje)
-    
+        acumulador_numeros = 0
+        contador = 0
+        for numeros in self.lista_datos:
+            contador += 1
+            acumulador_numeros += numeros
+        promedio = acumulador_numeros / contador
+        alert(title="Promedio", message=promedio)
+
 if __name__ == "__main__":
     app = App()
     app.mainloop()

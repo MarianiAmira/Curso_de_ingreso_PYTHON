@@ -28,7 +28,8 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_on_click(self):
-        alert(title="Lista", message=self.lista_datos)
+        for numeros in self.lista_datos:
+            alert(title="Numero", message=numeros)
         
     
 if __name__ == "__main__":

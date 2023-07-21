@@ -7,6 +7,11 @@ import customtkinter
 
 
 '''
+nombre: Amira
+apellido: Mariani
+---
+Ejercicio: tiempo_02
+---
 Al presionar el botón INICIAR se debe mostrar un mensaje de bienvenida "Bienvenidos a la UTN FRA" cada 3 segundos. 
 Al presionar el botón FINALIZAR se debe detener los mensajes.
 
@@ -28,11 +33,16 @@ class App(customtkinter.CTk):
         self.btn_cancelar.grid(row=2, pady=10, columnspan=2, sticky="nsew")
 
     def btn_mostrar_on_click(self):
-        pass
+        import time
+        
+        while True:
+            self.saludo_activo = True
+            self.saludo_activo = alert(title="Saludo", message="Bienvenidos a la UTN FRA")
+            time.sleep(3)    
         
     def btn_cancelar_on_click(self):
-        pass
-
+        self.saludo_activo = False
+        
 if __name__ == "__main__":
     app = App()
     app.mainloop()

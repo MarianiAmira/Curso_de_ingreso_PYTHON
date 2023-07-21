@@ -7,6 +7,11 @@ import customtkinter
 
 
 '''
+nombre: Amira
+apellido: Mariani
+---
+Ejercicio: tiempo_01
+---
 Enunciado:
 Al presionar el botón INICIAR se debe mostrar un mensaje de bienvenida "Bienvenidos a la UTN FRA" cada 3 segundos. 
 
@@ -24,7 +29,11 @@ class App(customtkinter.CTk):
         self.btn_mostrar.grid(row=1, pady=10, columnspan=2, sticky="nsew")
 
     def btn_mostrar_on_click(self):
-        pass
+        import time
+        
+        while True:
+            alert(title="Saludo", message="Bienvenidos a la UTN FRA")
+            time.sleep(3)
         
 
 if __name__ == "__main__":

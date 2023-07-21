@@ -28,11 +28,15 @@ class App(customtkinter.CTk):
         self.lista_datos = [1,80,5,0,15,-5,1,79]
 
     def btn_calcular_on_click(self):
-        numeros = self.lista_datos
-        minimo = min(numeros)
+        minimo = self.lista_datos[0]
+
+        for numeros in self.lista_datos:
+
+            if numeros < minimo:
+                minimo = numeros
+
         mensaje ="El numero minimo es {0}".format(minimo)
         alert(title="Minimo", message= mensaje)
-    
     
 if __name__ == "__main__":
     app = App()

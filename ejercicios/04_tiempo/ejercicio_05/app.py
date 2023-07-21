@@ -7,6 +7,11 @@ import customtkinter
 
 
 '''
+nombre: Amira
+apellido: Mariani
+---
+Ejercicio: tiempo_01
+---
 Luego de presionar el botón 'Iniciar', se debe disparar, 3 segundos después, un saludo con el mensaje "Bienvenido a la UTN FRA".
 
 '''
@@ -24,13 +29,15 @@ class App(customtkinter.CTk):
 
         self.contador  = 0
 
-    def btn_mostrar_on_click(self):
-        pass
+    def btn_mostrar_on_click(self): 
+        import time
+        while True:
+            alert(title="Saludo", message="Bienvenido a la UTN FRA")
+            time.sleep(3)
 
     def mostrar_mensaje(self):
-        pass
-        
-            
+            alert(title="Saludo", message="Bienvenido a la UTN FRA")
+
 
 if __name__ == "__main__":
     app = App()

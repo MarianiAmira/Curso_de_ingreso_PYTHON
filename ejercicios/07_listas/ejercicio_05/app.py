@@ -29,10 +29,10 @@ class App(customtkinter.CTk):
 
 
     def btn_calcular_on_click(self):
-        numeros = self.lista_datos
-        promedio = sum(numeros)
-        mensaje ="La suma es {0}".format(promedio)
-        alert(title="Suma", message= mensaje)
+        acumulador_numeros = 0
+        for numeros in self.lista_datos:
+            acumulador_numeros += numeros
+        alert(title="Suma", message=acumulador_numeros)
 
 if __name__ == "__main__":
     app = App()

@@ -28,23 +28,18 @@ class App(customtkinter.CTk):
         self.btn_cargar = customtkinter.CTkButton(master=self, text="Cargar", command=self.btn_cargar_on_click)
         self.btn_cargar.grid(row=3, pady=10, columnspan=2, sticky="nsew")
 
-        self.lista_datos = [1, 2, 3]
+        self.lista_datos = []
 
 
     def btn_mostrar_on_click(self):
-        numero_uno = int(prompt(title="Numero 1", prompt="Ingrese un numero: "))
-        numero_dos = int(prompt(title="Numero 2", prompt="Ingrese un numero: "))
-        numero_tres = int(prompt(title="Numero 3", prompt="Ingrese un numero: "))
-
-        self.lista_datos_uno = [numero_uno]
-        self.lista_datos_dos = [numero_dos]
-        self.lista_datos_tres = [numero_tres]
+        for numeros in self.lista_datos:
+            alert(title="Numeros", message= numeros)
          
     def btn_cargar_on_click(self):
-            alert(title="Numero Ingresados", message= self.lista_datos_uno)
-            alert(title="Numero Ingresados", message= self.lista_datos_dos)
-            alert(title="Numero Ingresados", message= self.lista_datos_tres)
- 
+            for numeros in range(3):
+                numeros = prompt(title="Numeros", prompt="Ingrese un numero")
+        
+                self.lista_datos.append(numeros)
     
 if __name__ == "__main__":
     app = App()

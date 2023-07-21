@@ -29,13 +29,18 @@ class App(customtkinter.CTk):
         self.contador  = 0
 
     def btn_mostrar_on_click(self):
-        pass
+        import time
+        while True:
+            self.saludo_activo = True
+            alert(title="Saludo", message="Bienvenido a la UTN FRA")
+            time.sleep(2)
+            #self.contador += 1
         
     def btn_cancelar_on_click(self):
-        pass
+        self.saludo_activo = False
 
     def mostrar_mensaje(self):
-        pass
+        alert(title="Mensaje", message=self.contador)
 
 if __name__ == "__main__":
     app = App()
