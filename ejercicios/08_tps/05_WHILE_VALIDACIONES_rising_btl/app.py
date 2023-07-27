@@ -55,31 +55,27 @@ class App(customtkinter.CTk):
         self.btn_validar.grid(row=4, pady=20, columnspan=2, sticky="nsew")
 
     def btn_validar_on_click(self):
-        apellido_Ingresado = self.txt_apellido.get()
-        while apellido_Ingresado == "":
-            alert(title="Error", message="Ingrese su apellido")
-            return False
-        while apellido_Ingresado.isdigit():
-            alert(title="Error", message="Ingrese su apellido,no se permiten numeros")
-            return False
-        
-        edad_ingresada_txt = self.txt_edad.get()
-        edad_ingresada_int = int(edad_ingresada_txt)
-        while edad_ingresada_int < 18 or edad_ingresada_int > 90:
-            alert(title="Error", message="Ingrese su edad(entre 19 y 90)")
-            return False
-        
-        estado_civil = self.combobox_tipo.get()
+        apellido = prompt(title="Apellido", prompt="Ingrese su apellido")
+        while not apellido:
+            apellido = prompt(title="ERROR", prompt="ERROR, Ingrese su apellido")
+        edad = int(prompt(title="Edad", prompt="Ingrese su edad"))
+        while edad < 18 or edad > 90:
+            edad = int(prompt(title="ERROR", prompt="ERROR, Ingrese su edad"))
+        estado_civil = prompt(title="Estado civil", prompt="Ingrese su estado civil(Soltero,Casado,Divorciado,Viudo)")
+        while estado_civil != "Soltero" and estado_civil != "Casado" and estado_civil != "Divorciado" and estado_civil != "Viudo":
+            estado_civil = prompt(title="ERROR", prompt="ERROR,Ingrese su estado civil(Soltero,Casado,Divorciado,Viudo)")
+        legajo = int(prompt(title="Legajo", prompt="Ingrese su legajo,numérico de 4 cifras"))
+        while legajo < 1000 or legajo > 9999:
+            legajo = prompt(title="ERROR", prompt="ERROR, Ingrese su legajo,numérico de 4 cifras")
 
-        legajo_ingresado_txt = self.txt_legajo.get()
-        legajo_ingresado_int = int(legajo_ingresado_txt)
-        while legajo_ingresado_int < 1000 or legajo_ingresado_int > 9999:
-            alert(title="Error", message="Ingrese el legajo de nuevo(de 4 cifras)")
-            return False
-        
-        mensaje = "Los datos ingresados son:\nSu apellido es: {0}\nSu edad es: {1}\nSu estado civil es: {2}\nSu legajo es:{3}".format(apellido_Ingresado,edad_ingresada_int,estado_civil,legajo_ingresado_int)
+        self.txt_apellido.delete(0,1000)
+        self.txt_apellido.insert(0, apellido)
+        self.txt_edad.delete(0,1000)
+        self.txt_edad.insert(0, edad)
+        self.combobox_tipo.set(estado_civil)
+        self.txt_legajo.delete(0,1000)
+        self.txt_legajo.insert(0, legajo)
 
-        alert(title="Datos Ingresados", message=mensaje)
 
 if __name__ == "__main__":
     app = App()

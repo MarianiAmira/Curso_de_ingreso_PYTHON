@@ -76,7 +76,6 @@ class App(customtkinter.CTk):
             
     def btn_aceptar_on_click(self):
         pass
-        
     
     def btn_rechazar_on_click(self):
         pass

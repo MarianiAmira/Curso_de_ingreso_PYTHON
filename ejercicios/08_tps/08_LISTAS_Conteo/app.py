@@ -46,38 +46,43 @@ class App(customtkinter.CTk):
     def btn_comenzar_ingreso_on_click(self):
         respuesta = "Si"
         while respuesta != None:
-            numeros_ingresados = int(prompt(title="Numeros", prompt="Ingrese un numero"))
-            self.lista_datos_numeros.append(int(numeros_ingresados))
+            numeros = prompt(title="Numeros", prompt="Ingrese un numero:")
+            while numeros is None:
+                numeros = prompt(title="ERROR", prompt="ERROR, Ingrese un numero:")
+            self.lista_datos_numeros.append(int(numeros))
             respuesta = prompt(title="Pregunta", prompt="Quiere ingresar otro numero?")
 
     def btn_mostrar_estadisticas_on_click(self):
-        acumulador_negativos = 0
-        acumulador_positivos = 0
-        contador_negativos = 0
-        contador_positivos = 0
-        contador_ceros = 0
-        numero_minimo = 0
+        contador_positivos =0
+        acumulador_positivos =0
+        contador_negativos =0
+        acumulador_negativos =0
+        contador_ceros =0
         numero_maximo = 0
-
+        numero_minimo = 0
+        
         for numeros in self.lista_datos_numeros:
-            if numeros < 0:
-                acumulador_negativos += numeros
-                contador_negativos += 1
-            elif numeros > 0:
-                acumulador_positivos += numeros
+            if numeros > 0:
                 contador_positivos += 1
+                acumulador_positivos += numeros
+            elif numeros < 0:
+                contador_negativos += 1
+                acumulador_negativos += numeros
             else:
                 contador_ceros += 1
-
-            if numeros < numero_minimo:
-                numero_minimo = numeros
 
             if numeros > numero_maximo:
                 numero_maximo = numeros
 
-        promedio_negativos = acumulador_negativos / contador_negativos
+            if numeros < numero_minimo:
+                numero_minimo = numeros
+        
+        if contador_negativos != 0:
+            promedio_negativos = acumulador_negativos / contador_negativos
+        if contador_negativos == 0:
+            promedio_negativos = "No se ingresaron numero negativos"
 
-        mensaje = "La suma acumulada de los negativos es de: {0}\nLa suma acumulada de los positivos es de:{1}\nLa cantidad de numeros negativos es de {2}\nLa cantidad de numeros positivos es de {3}\nLa cantidad de ceros es de: {4}\nEl numero minimo de numeros negativos es: {5}\nEl numero maximo de positivos es: {6}\nEl promedio de numero negativos es: {7}".format(acumulador_negativos,acumulador_positivos,contador_negativos,contador_positivos,contador_ceros,numero_minimo, numero_maximo,promedio_negativos)
+        mensaje = "a. La suma acumulada de los negativos: {0}\nb. La suma acumulada de los positivos: {1}\nc. Cantidad de números positivos ingresados: {2}\nd. Cantidad de números negativos ingresados: {3}\ne. Cantidad de ceros: {4}\nf. El minimo de los negativos: {5}\ng. El maximo de los positivos: {6}\nh. El promedio de los negativos: {7}".format(acumulador_positivos,acumulador_negativos,contador_positivos,contador_negativos,contador_ceros,numero_minimo,numero_maximo,promedio_negativos)
 
         alert(title="Resultados", message=mensaje)
 

@@ -29,62 +29,64 @@ class App(customtkinter.CTk):
         self.btn_validar.grid(row=4, pady=20, columnspan=2, sticky="nsew")
 
     def btn_validar_on_click(self):
-        respuesta = "si"
-        bandera_votos = False
-
-        votos_mas_altos = -1
+        respuesta = "Si"
+        candidato_mas_votos = 0
         nombre_candidato_mas_votos = ""
-        edad_candidatos_menos_votos = -1
-        nombre_candidato_menos_votos = ""
-        votos_menos_altos = float("inf")
-        suma_edades = 0
-        total_candidatos = 0
-        votos_totales = 0
+        nombre_candidato_menos_votos = None
+        candidato_menos_votos = float('inf')
+        edad_candidato_menos_votos = -1
+        contador_edades_candidatos = 0
+        acumulador_edades_candidatos = 0
+        bandera_candidato_mas_votos = False
+        bandera_candidato_menos_votos = False
 
         while respuesta != None:
-            nombre = prompt(title="Nombre Candidato", prompt="Ingrese su nombre")
-            while nombre == "":
-                nombre = prompt(title="ERROR", prompt="ERROR, Ingrese su nombre")
-
-            edad = int(prompt(title="Edad", prompt="Ingrese su edad"))
+            nombre = prompt(title="Nombre", prompt="Ingrese su nombre:")
+            while nombre is None:
+                nombre = prompt(title="ERROR", prompt="ERROR, Ingrese su nombre:")
+            edad = int(prompt(title="Edad", prompt="Ingrese su edad:"))
             while edad < 25:
-                edad = int(prompt(title="ERROR", prompt="ERROR, Ingrese su edad"))
+                edad = int(prompt(title="ERROR", prompt="ERROR, Ingrese su edad:"))
+            cantidad_votos = int(prompt(title="Cantidad de votos", prompt="Ingrese la cantidad de votos del candidato:"))
+            while cantidad_votos < 0:
+                cantidad_votos = prompt(title="ERROR", prompt="ERROR, Ingrese la cantidad de votos del candidato:")
 
-            cantidad_de_votos = int(prompt(title="Votos", prompt="Ingrese sus votos"))
-            while cantidad_de_votos < 0:
-                cantidad_de_votos = int(prompt(title="ERROR", prompt="Error, Ingrese sus votos"))
+            respuesta= prompt(title="Pregunta", prompt="Quiere ingresar otro candidato?")
 
-            respuesta = prompt(title="Candidatos", prompt="Quiere agregar otro candidato")
-            
-
-        '''for candidatos in candidatos:
-            nombre, edad, cantidad_de_votos = candidatos'''
-
-        if bandera_votos == False:
-            nombre_candidato_mas_votos = nombre
-            nombre_candidato_menos_votos = nombre
-            bandera_votos = True
-        else:
-            if cantidad_de_votos > votos_mas_altos:
+            #a. nombre del candidato con más votos
+            if bandera_candidato_mas_votos == True:
+                candidato_mas_votos = cantidad_votos
                 nombre_candidato_mas_votos = nombre
-                votos_mas_altos = cantidad_de_votos
+            else:
+                if cantidad_votos > candidato_mas_votos:
+                    candidato_mas_votos = cantidad_votos
+                    nombre_candidato_mas_votos = nombre
+                    bandera_candidato_mas_votos = False
 
-            if cantidad_de_votos < votos_menos_altos:
-                edad_candidatos_menos_votos = edad
+            # b. nombre y edad del candidato con menos votos
+            if bandera_candidato_menos_votos == True:
+                candidato_menos_votos = cantidad_votos
                 nombre_candidato_menos_votos = nombre
-                votos_menos_altos = cantidad_de_votos
+                edad_candidato_menos_votos = edad
+                bandera_candidato_menos_votos = False
+            else: 
+                if cantidad_votos < candidato_menos_votos:
+                    candidato_menos_votos = cantidad_votos
+                    nombre_candidato_menos_votos = nombre
+                    edad_candidato_menos_votos = edad
 
-            suma_edades += edad
-            total_candidatos += 1
-            votos_totales += cantidad_de_votos
+            # c. el promedio de edades de los candidatos
+            contador_edades_candidatos += 1
+            acumulador_edades_candidatos += edad
 
-        
-        if promedio < 0:
-            promedio = suma_edades / total_candidatos
+        promedio_candidatos = acumulador_edades_candidatos / contador_edades_candidatos
 
-        mensaje = "El candidato con mas votos es {0}\nEl candidato con menos votos es:{1}, con {2} años\nEl promedio de edades de los candidatos es de {3}\nEl total de votos es de {4}".format(nombre_candidato_mas_votos,nombre_candidato_menos_votos,edad_candidatos_menos_votos,promedio,votos_totales)
-
-        alert(title="Candidatos", message=mensaje)
+        print(f"nombre del candidato con más votos: {nombre_candidato_mas_votos}")
+        if contador_edades_candidatos == 0: 
+            print("No se ingresaron candidatos.")
+        else:
+            print(f"nombre del candidato con menos votos es {nombre_candidato_menos_votos} y su edad es {edad_candidato_menos_votos}")
+        print(f"el promedio de edades de los candidatos: {promedio_candidatos}")
 
 
 if __name__ == "__main__":
